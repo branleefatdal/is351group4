@@ -1,2 +1,45 @@
+# Composer dependencies
 /vendor/
-/.env 
+
+# Environment variables and secrets
+.env
+
+# User uploads
+/uploads/
+
+# Logs
+*.log
+logs/
+
+# Cache files
+cache/
+tmp/
+temp/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE and editor settings
+.vscode/
+.idea/
+
+# Composer PHAR (if present)
+composer.phar
+
+# PHPUnit cache
+.phpunit.result.cache
+
+# Node dependencies (if you add frontend tooling later)
+node_modules/
+
+# Build files
+dist/
+build/
+
+# Backup files
+*.bak
+*.backup
+
+# ZIP archives
+*.zip

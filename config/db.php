@@ -1,14 +1,12 @@
 <?php
+$host = "localhost";
+$dbname = "ecommerce_secure";
+$user = "root";
+$pass = "";
 
-$host = getenv('DB_HOST');
-$port = getenv('DB_PORT');
-$dbname = getenv('DB_NAME');
-$user = getenv('DB_USER');
-$pass = getenv('DB_PASS');
-
-$conn = new mysqli($host, $user, $pass, $dbname, (int)$port);
+$conn = new mysqli($host, $user, $pass, $dbname);
 
 if ($conn->connect_error) {
-    die("Database connection failed: " . $conn->connect_error);
+    die("Connection failed: " . $conn->connect_error);
 }
 ?>
