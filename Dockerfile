@@ -1,18 +1,27 @@
-FROM richarvey/nginx-php-fpm:latest
+FROM php:8.2-apache
 
-# Copy project files
-COPY . /var/www/html
+# Enable Apache rewrite (important for login routes, clean URLs)
+RUN a2enmod rewrite
+
+# Install dependencies
+RUN apt-get update && apt-get install -y \
+    libzip-dev zip unzip git \
+    && docker-php-ext-install pdo pdo_mysql zip
 
 # Set working directory
 WORKDIR /var/www/html
 
-# Install Composer dependencies
-RUN composer install --no-dev --optimize-autoloader
+# Copy project files
+COPY . .
 
-# Set permissions
+# Fix permissions
 RUN chown -R www-data:www-data /var/www/html
 
-# Expose port
-EXPOSE 8080
+# Install Composer (for vendor dependencies)
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+RUN composer install --no-dev --optimize-autoloader || true
 
-CMD ["/start.sh"]
+# Apache port (Render uses dynamic PORT)
+ENV PORT 80
+
+EXPOSE 80
